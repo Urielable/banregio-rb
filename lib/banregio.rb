@@ -1,5 +1,12 @@
-require "banregio/version"
+require "httparty"
 
 module Banregio
-  # Your code goes here...
+  class << self
+    attr_reader :access_token
+  end
 end
+
+require "banregio/version"
+require "banregio/bank_account"
+require "banregio/transaction"
+require "banregio/api_client"
