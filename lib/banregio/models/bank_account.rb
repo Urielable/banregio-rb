@@ -13,12 +13,11 @@ module Banregio
     end
 
     class BankAccount
-      attr_reader :id, :is_credit_card, :card_number,
+      attr_reader :id, :card_number,
                   :balance, :account_number
 
       def initialize(attrs = {})
         @id = attrs["id"]
-        @is_credit_card = attrs["is_credit_card"]
         @card_number = attrs["card_number"]
         @balance = attrs["balance"]
         @account_number = attrs["account_number"]
