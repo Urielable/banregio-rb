@@ -8,7 +8,7 @@ module Banregio
       response.map { |attrs| Banregio::Models::BankAccountFactory.build(attrs) }
     end
 
-    def link_bank_account(client_number, card_details = {})
+    def link_bank_account_for_client(client_number, card_details = {})
       response = self.put("/accounts", body: {
         client: {
           number: client_number
