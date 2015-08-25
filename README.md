@@ -1,12 +1,17 @@
-# Banregio
+# BanRegio
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/banregio`. To experiment with that code, run `bin/console` for an interactive prompt.
+A super simple ruby wrapper for the BanRegio REST API. For more information checkout the [docs](https://banregio-api-doc-staging.herokuapp.com/).
 
-TODO: Delete this and the text above, and describe your gem
+## Table of contents
+
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Add this line to your application's `Gemfile`:
 
 ```ruby
 gem 'banregio'
@@ -14,21 +19,80 @@ gem 'banregio'
 
 And then execute:
 
-    $ bundle
+```
+% bundle
+```
 
 Or install it yourself as:
 
-    $ gem install banregio
+```
+% gem install banregio
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+This gem does not support the OAuth2 authentication flow, for that we recommend you to use the [omniauth-banregio gem](https://github.com/banregiolabs/omniauth-banregio).
 
-## Development
+**To continue make sure you have a valid access token obtained from the omniauth-banregio gem**
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `bin/console` for an interactive prompt that will allow you to experiment.
+Start using the gem is super simple, you just need to instantiate a client:
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release` to create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+```ruby
+client = Banregio::APIClient.new("change_your_this_for_a_valid_access_token")
+```
+
+You can now start hitting the REST API. We currently have only support for 3 endpoints:
+
+### Link Bank Account
+
+```ruby
+client.link_bank_account_for_client("12345678", pin: "1234", last_4_digits: "1234")
+```
+
+**Output:**
+
+```ruby
+#<Banregio::Models::DebitBankAccount:0x007fe009a73ca8 @id=1, 
+	@card_number="************1234", @balance=423.00, 
+	@account_number="025971450013", @clabe="058580259714500135">
+```
+
+It can also be a `CreditBankAccount` type, but don't worry, the SDK is smart enough to know that.
+
+### Fetch Bank Accounts
+
+```ruby
+client.bank_accounts
+```
+
+**Output:**
+
+```ruby
+[#<Banregio::Models::DebitBankAccount:0x007fe009a73ca8 @id=1, 
+	@card_number="************1234", @balance=423.00, 
+	@account_number="025971450013", @clabe="058580259714500135">, 
+	#<Banregio::Models::DebitBankAccount:0x007fe009a73ca8 @id=2, 
+	@card_number="************4321", @balance=12343.00, 
+	@account_number="025971450011", @clabe="058580259714500134">...]
+```
+
+### Fetch Bank Account Transactions
+
+```ruby
+client.transactions
+```
+
+**Output:**
+
+```ruby
+[#<Banregio::Models::Transaction:0x007fe009a73ca8 
+	@transaction_number="12345", @reference_number="0987654", 
+	@description="Some description", @amount=100.50, 
+	@date=#<Date: 2015-09-16 ((2457282j,0s,0n),+0s,2299161j)>, 
+	@business: #<Banregio::Models::Business:0x007fe009a73ca9 @id=1234, 
+	@name="SEVEN ELEVEN", @activity_id=1234, 
+	@activity_name="Tienda de conveniencia"...]
+```
 
 ## Contributing
 
@@ -37,3 +101,8 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
+
+
+## License
+
+Code released under the [MIT license](LICENSE.txt).
