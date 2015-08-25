@@ -5,6 +5,7 @@ module Banregio
     include HTTParty
     base_uri "banregio-api.herokuapp.com"
     headers "Content-Type" => "application/json"
+    headers "Accept" => "application/vnd.banregio-v0.0.beta1+json"
 
     include BankAccount
     include Transaction
