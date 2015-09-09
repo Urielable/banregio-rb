@@ -1,9 +1,29 @@
 require "httparty"
+require "active_support"
 
 module Banregio
+
+  MODES_URLS = {
+    :sandbox => "https://banregio-api-sandbox.herokuapp.com",
+    :production => "https://banregio-api.herokuapp.com"
+  }
+
   class << self
     attr_reader :access_token
   end
+
+  # The keys to use for user authentication
+  mattr_accessor :mode
+  @@mode = :sandbox
+
+  mattr_reader :base_uri
+  @@base_uri = MODES_URLS[@@mode]
+
+  # Method for configuration
+  def self.setup
+    yield self
+  end
+
 end
 
 require "banregio/version"
