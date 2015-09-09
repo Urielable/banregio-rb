@@ -3,7 +3,7 @@ module Banregio
     attr_reader :access_token
 
     include HTTParty
-    base_uri "banregio-api.herokuapp.com"
+    base_uri Banregio.base_uri
     headers "Content-Type" => "application/json"
     headers "Accept" => "application/vnd.banregio-v0.0.beta1+json"
 

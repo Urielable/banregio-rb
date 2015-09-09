@@ -12,7 +12,7 @@ module Banregio
         @description = attrs["description"]
         @amount = attrs["amount"]
         @date = Date.parse(attrs["date"])
-        @business = ::Business.new(attrs["business"]) unless attrs["business"].empty?
+        @business = Business.new(attrs["business"]) unless attrs["business"].empty?
       end
 
       def business?

@@ -3,7 +3,7 @@ module Banregio
     class BankAccountFactory
 
       def self.build(attrs = {})
-        is_credit_card = attrs["is_credit_card"] || false
+        is_credit_card = attrs["is_credit_card"]
 
         {
           true => CreditBankAccount,
