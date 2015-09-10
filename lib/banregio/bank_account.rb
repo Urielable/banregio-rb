@@ -6,7 +6,7 @@ module Banregio
 
     def bank_accounts
       response = self.class.get("/accounts")
-      response.map { |attrs| Banregio::Models::BankAccountFactory.build(attrs) }
+      response['accounts'].map { |attrs| Banregio::Models::BankAccountFactory.build(attrs) }
     end
 
     def link_bank_account_for_client(client_number, card_details = {})
