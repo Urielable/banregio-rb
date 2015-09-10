@@ -4,8 +4,8 @@ require "active_support"
 module Banregio
 
   MODES_URLS = {
-    :sandbox => "https://banregio-api-sandbox.herokuapp.com",
-    :production => "https://banregio-api.herokuapp.com"
+    :sandbox => "https://sandbox.banregio.com",
+    :production => "https://api.banregio.com"
   }
 
   class << self
